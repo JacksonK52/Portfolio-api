@@ -22,5 +22,11 @@ class DatabaseSeeder extends Seeder
 
         // Result Type Seed
         $this->call(ResultTypeSeed::class);
+
+        // Skill
+        $this->call(SkillSeed::class);
+
+        // Language
+        $this->call(LanguageSeed::class);
     }
 }

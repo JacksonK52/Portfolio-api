@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\ClientStatusEnum;
 
 return new class extends Migration
 {
@@ -23,7 +24,10 @@ return new class extends Migration
             $table->rememberToken();
             $table->string('img_path', 255)->default('/images/superadmin.png');
             $table->softDeletes();
-            $table->tinyInteger('status')->default(1);  // 0 - Inactive | 1 - Active
+            $table->enum('status', [
+                ClientStatusEnum::INACTIVE->value,
+                ClientStatusEnum::ACTIVE->value,
+            ])->default(ClientStatusEnum::ACTIVE->value);
             $table->timestamps();
         });
     }

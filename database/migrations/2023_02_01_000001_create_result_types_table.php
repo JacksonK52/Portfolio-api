@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('result_types', function (Blueprint $table) {
             $table->id();
             $table->string('slug', 255)->unique();
-            $table->string('resultType_name', 255);
+            $table->string('name', 255);
             $table->unsignedBigInteger('updated_by');
             $table->unsignedBigInteger('created_by');
             $table->softDeletes();

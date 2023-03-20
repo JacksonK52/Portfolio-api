@@ -17,14 +17,14 @@ return new class extends Migration
         Schema::create('qualifications', function (Blueprint $table) {
             $table->id();
             $table->string('slug', 255)->unique();
-            $table->string('institude_name', 255);          // Gauhati University
-            $table->string('institude_location', 255);      // Guwahati, AS
-            $table->bigInteger('standard_id');              // Masters | Bachelores | Phd.
-            $table->string('degree_name')->nullable();      // MSc. Information Technology
-            $table->bigInteger('result_type_id');           // Percentage | CGPA
-            $table->decimal('mark_obtain', 12, 2);          // 6.70
-            $table->decimal('out_of', 12, 2)->nullable();   // 100.00    
-            $table->date('completion_date');                // Aug-2019
+            $table->string('institude_name', 255);          
+            $table->string('institude_location', 255);      
+            $table->unsignedBigInteger('standard_id');              
+            $table->string('degree_name')->nullable();      
+            $table->unsignedBigInteger('result_type_id');           
+            $table->decimal('mark_obtain', 12, 2);          
+            $table->decimal('out_of', 12, 2)->nullable();      
+            $table->date('completion_date');                
             $table->tinyInteger('is_highlighted')->default(0);  // 0 - No | 1 - Yes
             $table->unsignedBigInteger('updated_by');
             $table->unsignedBigInteger('created_by');
