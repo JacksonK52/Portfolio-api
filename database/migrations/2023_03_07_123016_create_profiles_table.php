@@ -21,9 +21,10 @@ return new class extends Migration
             $table->string('middle_name', 255)->nullable();
             $table->string('last_name', 255)->nullable();
             $table->text('introduction')->nullable();
-            $table->unsignedBigInteger('skills')->nullable();
-            $table->unsignedBigInteger('language')->nullable();
-            $table->bigInteger('hobby')->nullable();
+            $table->unsignedBigInteger('skills_id')->nullable();
+            $table->unsignedBigInteger('language_id')->nullable();
+            $table->unsignedBigInteger('native_language_id')->nullable();
+            $table->unsignedBigInteger('hobby_id')->nullable();
             // People will sent mail to this email
             $table->string('point_of_contact_email')->nullable();
             $table->unsignedBigInteger('updated_by');
@@ -35,6 +36,13 @@ return new class extends Migration
             ])->default(ClientStatusEnum::ACTIVE->value);
             $table->timestamps();
             // Foreign Key
+            $table->index(['skills_id', 'language_id', 'native_language_id', 'hobby_id', 'updated_by', 'created_by']);
+            $table->foreign('skills_id')->references('id')->on('skills');
+            $table->foreign('language_id')->references('id')->on('languages');
+            $table->foreign('native_language_id')->references('id')->on('languages');
+            $table->foreign('hobby_id')->references('id')->on('hobbies');
+            $table->foreign('updated_by')->references('id')->on('users');
+            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 

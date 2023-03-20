@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Enums\LanguageStatusEnum;
 use Illuminate\Support\Facades\Schema;
-use App\Enums\StandardStatusEnum;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -14,17 +14,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('standards', function (Blueprint $table) {
+        Schema::create('languages', function (Blueprint $table) {
             $table->id();
             $table->string('slug', 255)->unique();
             $table->string('name', 255);
+            $table->text('remarks')->nullable();
             $table->unsignedBigInteger('updated_by');
             $table->unsignedBigInteger('created_by');
             $table->softDeletes();
             $table->enum('status', [
-                StandardStatusEnum::INACTIVE->value,
-                StandardStatusEnum::ACTIVE->value,
-            ])->default(StandardStatusEnum::ACTIVE->value);
+                LanguageStatusEnum::INACTIVE->value,
+                LanguageStatusEnum::ACTIVE->value,
+            ])->default(LanguageStatusEnum::ACTIVE->value);
             $table->timestamps();
             // FOREIGN Key
             $table->index(['updated_by', 'created_by']);
@@ -40,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('standards');
+        Schema::dropIfExists('languages');
     }
 };
