@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 namespace App\Enums;
 
-enum SkillApprovedEnum: int {
+enum ExperiencePresentlyWorkingEnum: int {
     case NO = 0;
     case YES = 1;
 

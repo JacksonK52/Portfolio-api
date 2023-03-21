@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum SkillApprovedEnum: int {
+enum ProfileOpenForWorkEnum: int {
     case NO = 0;
     case YES = 1;
 

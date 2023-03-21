@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Enums\HobbyStatusEnum;
 
 return new class extends Migration
 {
@@ -14,20 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hobbies', function (Blueprint $table) {
+        Schema::create('districts', function (Blueprint $table) {
             $table->id();
             $table->string('slug', 255)->unique();
+            $table->unsignedBigInteger('state_id');
             $table->string('name', 255);
             $table->unsignedBigInteger('updated_by');
             $table->unsignedBigInteger('created_by');
             $table->softDeletes();
-            $table->enum('status', [
-                HobbyStatusEnum::INACTIVE->value,
-                HobbyStatusEnum::ACTIVE->value,
-            ])->default(HobbyStatusEnum::ACTIVE->value);
             $table->timestamps();
             // FOREIGN Key
-            $table->index(['updated_by', 'created_by']);
+            $table->index(['state_id', 'updated_by', 'created_by']);
+            $table->foreign('state_id')->references('id')->on('states');
             $table->foreign('updated_by')->references('id')->on('users');
             $table->foreign('created_by')->references('id')->on('users');
         });
@@ -40,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hobbies');
+        Schema::dropIfExists('districts');
     }
 };
