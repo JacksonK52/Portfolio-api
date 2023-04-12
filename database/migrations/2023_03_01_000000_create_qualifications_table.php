@@ -1,9 +1,10 @@
 <?php
 
+use App\Enums\StatusEnum;
 use App\Enums\QualificationStatusEnum;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -30,16 +31,16 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by');
             $table->softDeletes();
             $table->enum('status', [
-                QualificationStatusEnum::INACTIVE->value,
-                QualificationStatusEnum::ACTIVE->value,
-            ])->default(QualificationStatusEnum::ACTIVE->value);
+                StatusEnum::INACTIVE->value,
+                StatusEnum::ACTIVE->value,
+            ])->default(StatusEnum::ACTIVE->value);
             $table->timestamps();
             // Foreign Key
             $table->index(['standard_id', 'result_type_id', 'updated_by', 'created_by']);
-            $table->foreign('standard_id')->references('id')->on('standards');
-            $table->foreign('result_type_id')->references('id')->on('result_types');
-            $table->foreign('updated_by')->references('id')->on('users');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('standard_id')->references('id')->on('standards')->onDelete('RESTRICT')->onUpdate('CASCADE');
+            $table->foreign('result_type_id')->references('id')->on('result_types')->onDelete('RESTRICT')->onUpdate('CASCADE');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('RESTRICT')->onUpdate('CASCADE');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('RESTRICT')->onUpdate('CASCADE');
         });
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum ResultTypeStatusEnum: int {
+enum StatusEnum: int {
     case INACTIVE = 0;
     case ACTIVE = 1;
 

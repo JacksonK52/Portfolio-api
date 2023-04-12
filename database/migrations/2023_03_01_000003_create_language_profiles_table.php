@@ -20,8 +20,8 @@ return new class extends Migration
             $table->timestamps();
             // Foreign Key
             $table->index(['language_id', 'profile_id']);
-            $table->foreign('language_id')->references('id')->on('languages');
-            $table->foreign('profile_id')->references('id')->on('profiles');
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('RESTRICT')->onUpdate('CASCADE');
+            $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('RESTRICT')->onUpdate('CASCADE');
         });
     }
 

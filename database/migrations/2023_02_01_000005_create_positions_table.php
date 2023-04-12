@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use App\Enums\StatusEnum;
 use App\Enums\PositionStatusEnum;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -22,14 +23,14 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by');
             $table->softDeletes();
             $table->enum('status', [
-                PositionStatusEnum::INACTIVE->value,
-                PositionStatusEnum::ACTIVE->value,
-            ])->default(PositionStatusEnum::ACTIVE->value);
+                StatusEnum::INACTIVE->value,
+                StatusEnum::ACTIVE->value,
+            ])->default(StatusEnum::ACTIVE->value);
             $table->timestamps();
             // FOREIGN Key
             $table->index(['updated_by', 'created_by']);
-            $table->foreign('updated_by')->references('id')->on('users');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('RESTRICT')->onUpdate('CASCADE');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('RESTRICT')->onUpdate('CASCADE');
         });
     }
 

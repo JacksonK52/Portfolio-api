@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use App\Enums\StatusEnum;
 use App\Enums\ClientStatusEnum;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -25,9 +26,9 @@ return new class extends Migration
             $table->string('img_path', 255)->default('/images/superadmin.png');
             $table->softDeletes();
             $table->enum('status', [
-                ClientStatusEnum::INACTIVE->value,
-                ClientStatusEnum::ACTIVE->value,
-            ])->default(ClientStatusEnum::ACTIVE->value);
+                StatusEnum::INACTIVE->value,
+                StatusEnum::ACTIVE->value,
+            ])->default(StatusEnum::ACTIVE->value);
             $table->timestamps();
         });
     }

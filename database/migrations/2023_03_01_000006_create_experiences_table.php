@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-use App\Enums\ExperiencePresentlyWorkingEnum;
+use App\Enums\StatusEnum;
 use App\Enums\ExperienceStatusEnum;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use App\Enums\ExperiencePresentlyWorkingEnum;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -34,17 +35,17 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by');
             $table->softDeletes();
             $table->enum('status', [
-                ExperienceStatusEnum::INACTIVE->value,
-                ExperienceStatusEnum::ACTIVE->value,
-            ])->default(ExperienceStatusEnum::ACTIVE->value);
+                StatusEnum::INACTIVE->value,
+                StatusEnum::ACTIVE->value,
+            ])->default(StatusEnum::ACTIVE->value);
             $table->timestamps();
             // FOREIGN Key
             $table->index(['position_id', 'state_id', 'district_id', 'updated_by', 'created_by']);
-            $table->foreign('position_id')->references('id')->on('positions');
-            $table->foreign('state_id')->references('id')->on('states');
-            $table->foreign('district_id')->references('id')->on('districts');
-            $table->foreign('updated_by')->references('id')->on('users');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('position_id')->references('id')->on('positions')->onDelete('RESTRICT')->onUpdate('CASCADE');
+            $table->foreign('state_id')->references('id')->on('states')->onDelete('RESTRICT')->onUpdate('CASCADE');
+            $table->foreign('district_id')->references('id')->on('districts')->onDelete('RESTRICT')->onUpdate('CASCADE');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('RESTRICT')->onUpdate('CASCADE');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('RESTRICT')->onUpdate('CASCADE');
         });
     }
 
